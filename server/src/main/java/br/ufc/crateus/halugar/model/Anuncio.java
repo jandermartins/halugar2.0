@@ -20,6 +20,14 @@ public class Anuncio {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Casa casa;
 
+	
+	
+	public Anuncio(Usuario usuario, Casa casa) {
+		super();
+		this.usuario = usuario;
+		this.casa = casa;
+	}
+
 	public Anuncio() {
 
 	}

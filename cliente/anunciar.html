@@ -157,9 +157,7 @@
                                 </div>
 
                             </div>
-                        </div>
-                        {{file}}
-                        
+                        </div>                        
                     </div>
                 </div>
             </form>
@@ -195,6 +193,7 @@
                 file: null,
                 usuario: {},
                 anuncio:{},
+                casa:{},
                 campoIncorreto: false,
                 anuncioCriado: false,
                 flagLogin: true // true: usuário precisa logar || false: usuário já logado
@@ -207,9 +206,11 @@
                 //    location.href = "acesso_negado.html"; // Se o usuário não estiver logado, redirecionar para a página "Acesso Negado".
                 //}
 
+                id = this.$session.get("id");
+
             },
-            methods: {                
-                postAnuncio(){
+            methods: {
+                postCasa(){
                     let formData = new FormData();
                     formData.append('image', this.file)
                     formData.append('endereco', this.endereco);
@@ -219,19 +220,29 @@
                     formData.append('informacoes', this.informacoes);
                     formData.append('preco', this.preco);
                     formData.append('vagas', this.vagas);
+                    formData.append('idUsuario', this.id);
 
-                    axios.post(this.urlCasa,                    	
-                    	formData,{
-                    		headers: {
-                    			'Content-Type': 'multipart/form-data'
-                    		}
-                    	}
+                    axios.post(this.urlCasa,                        
+                        formData,{
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }
                     ).then(function(r) {
-                    	console.log(r.data);
+                        console.log(r.data);
                     }).catch(function (error){
-                    	console.log(error);
+                        console.log(error);
                     });
                 },
+                getUser() {
+                    vm = this;
+                    axios.get(this.urlUsuario + "/" + this.id).then(function (r) {
+                        console.log(r.data);
+                        vm.usuario = r.data;
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },  
                 handleFileUpload() {
                     this.file = this.$refs.file.files[0];                        
                 },
@@ -244,7 +255,7 @@
                         this.campoIncorreto=true;
                     }
                     else{  
-                        this.postAnuncio();
+                        this.postCasa();
                         this.campoIncorreto=false;                  
                         this.anuncioCriado=true;
                     }

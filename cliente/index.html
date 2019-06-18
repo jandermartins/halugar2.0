@@ -116,7 +116,7 @@
 
                 <!-- Se existirem mais de 4 anúncios cadastrados -->
                 <div v-else>
-                    <div id="exibirCasas" class="col-md-3" v-for="anuncio in casas.slice((casas.length)-4,casas.length)"> 
+                    <div id="exibirCasas" class="col-md-3" v-for="anuncio in casas.slice((casas.length)-4,casas.length).reverse()"> 
                         <p id="imagemAnuncioP" class="text-center"><a :href="'anuncio_view.html?id='+anuncio.id"><img id="imagemAnuncio" class="img-fluid" :src="'uploads/'+anuncio.id+'?'+new Date().getTime()"></a></p>
                         <p id="bairroAnuncio" class="text-center"><strong>{{anuncio.bairro.toUpperCase()}}</strong></p>
                         <p id="precoAnuncio" class="text-center">R$ {{anuncio.preco}}</p>

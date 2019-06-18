@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufc.crateus.halugar.model.Anuncio;
+import br.ufc.crateus.halugar.model.Casa;
+import br.ufc.crateus.halugar.model.Usuario;
 import br.ufc.crateus.halugar.service.AnuncioService;
 
 @RestController
@@ -34,7 +36,8 @@ public class AnuncioController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Anuncio addAnuncio(Anuncio anuncio) {
+	public Anuncio addAnuncio(Usuario usuario, Casa casa) {
+		Anuncio anuncio = new Anuncio(usuario, casa);
 		return anuncioService.addAnuncio(anuncio);
 	}
 
@@ -55,5 +58,5 @@ public class AnuncioController {
 	@RequestMapping(method = RequestMethod.DELETE)
 	public void deleteAnuncio(Anuncio anuncio) {
 		anuncioService.deleteAnuncio(anuncio);
-	}
+	}	
 }
