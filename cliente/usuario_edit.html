@@ -43,7 +43,7 @@
             return document.getElementById( el );
         }
         window.onload = function(){
-            id('telefone').onkeypress = function(){
+            id('inputTelefone').onkeypress = function(){
                 mascara( this, mtel );
             }
         }
@@ -103,7 +103,7 @@
                             <div class="form-group"><input id="inputEmail" class="form-control" type="email" v-model="email" name="email" required="Digite o email" placeholder="Email" required></div>
                             <div class="form-group"><input id="inputLogin" class="form-control" type="text" v-model="login" name="login" required="Digite o login" placeholder="Login" required></div>
                             <div class="form-group"><input id="inputSenha" class="form-control" type="password" v-model="senha" name="senha" required="Digite a senha" placeholder="Senha" required></div>
-                            <div class="form-group"><input id="inputTelefone" class="form-control" id="telefone" type="text" v-model="telefone" name="telefone" required="Digite o telefone" maxlength="15" placeholder="Telefone" required></div>
+                            <div class="form-group"><input id="inputTelefone" class="form-control" type="text" v-model="telefone" name="telefone" required="Digite o telefone" maxlength="15" placeholder="Telefone" required></div>
 
                             <div class="form-group"><button id="botaoAtualizarUsuario" class="btn btn-primary btn-block" @click="checkForm" type="button">Atualizar</button></div>
 
@@ -141,7 +141,7 @@
         var app = new Vue({
             el: "#app",
             data: {
-                urlUser: "http://10.5.30.140:8080/halugar/api/users",
+                urlUsuario: "http://10.5.30.140:8080/halugar/api/users",
                 nome: "",
                 login: "",
                 senha: "",
@@ -163,7 +163,21 @@
                 //}
 
                 vm = this;
-                axios.get(this.urlUser).then(function (r) {
+
+                var currentUrl = window.location.href;
+                var id = new URL(currentUrl).searchParams.get("id");
+
+                vm = this;
+
+                axios.get(this.urlUsuario + "/" + id).then(function (r) {
+                    vm.usuario = r.data;
+                    console.log(vm.usuario);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+                /*
+                axios.get(this.urlUsuario).then(function (r) {
                     if(r.data.user.length>1) {
                         vm.usuarios = r.data.user;    
                     } else {
@@ -172,6 +186,7 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
+                */
 
                 this.id = this.$session.get("id");
                 this.getUserById(this.id);
@@ -202,7 +217,7 @@
                     formData.append('login', this.login);
                     formData.append('telefone', this.telefone);
 
-                    axios.put(this.url + "/" + this.id,
+                    axios.put(this.url + "/" + this.usuario.id,
                         formData,
                         {
                             headers: {
@@ -235,9 +250,9 @@
                         this.campoIncorreto=true;
                     }
                     else{
+                        this.putUser();
                         this.campoIncorreto = false;
                         this.usuarioAtualizado = true;
-                        this.putUser();                    
                     }
                     // e.preventDefault(); // Erro!
                 },

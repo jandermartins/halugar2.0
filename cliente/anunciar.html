@@ -24,9 +24,8 @@
     <script src="assets/js/vue-session.js"></script>
     <script src="assets/js/jquery.maskedinput.min.js"></script>
 
-    <!-- VALIDAR CEP | INÍCIO -->
+    <!-- MÁSCARA - CEP | INÍCIO -->
     <script type="text/javascript">
-        /* Máscaras ER */
         function mascara(o,f){
             v_obj=o
             v_fun=f
@@ -41,16 +40,16 @@
             c=c.replace(/(\d)(\d{3})$/,"$1-$2");
             return c;
         }
-        function id( el ){
-            return document.getElementById( el );
+        function id(el){
+            return document.getElementById(el);
         }
         window.onload = function(){
-            id('cep').onkeypress = function(){
+            id('inputCep').onkeypress = function(){
                 mascara( this, mcep );
             }
         }
     </script>
-    <!-- VALIDAR CEP | FIM -->
+    <!-- MÁSCARA - CEP | FIM -->
     
 </head>
 
@@ -116,7 +115,7 @@
                         </div>
 
                         <div class="row" id="cepBairroRow">
-                            <div class="col-xl-4" id="cepCol"><input id="inputCep" class="form-control" id="cep" type="text" v-model="cep" name="cep" maxlength="9" required="Digite o CEP" placeholder="CEP *" required></div>
+                            <div class="col-xl-4" id="cepCol"><input id="inputCep" class="form-control" type="text" v-model="cep" name="cep" maxlength="9" required="Digite o CEP" placeholder="CEP *" required></div>
 
                             <div class="col-xl-8" id="bairroCol"><input id="inputBairro" class="form-control" type="text" v-model="bairro" name="bairro" required="Digite o Bairro" placeholder="Bairro *" required></div>
                         </div>
@@ -220,8 +219,6 @@
                     formData.append('informacoes', this.informacoes);
                     formData.append('preco', this.preco);
                     formData.append('vagas', this.vagas);
-
-                    // Verificar código para POST da imagem
 
                     axios.post(this.urlCasa,                    	
                     	formData,{

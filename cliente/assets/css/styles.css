@@ -793,12 +793,14 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
   margin-bottom:10px;
 }
 
+/*
 #meusDadosDiv{
   max-width:1000px;
   margin-right:auto;
   margin-left:auto;
   padding-bottom: 2px;
 }
+*/
 
 #meusDadosContainer{
   max-width:1000px;
@@ -845,6 +847,10 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 
 #botaoAtualizarDados, #botaoExcluirConta{
   font-family:ABeeZee, sans-serif;
+}
+
+#linkAtualizar{
+  text-decoration: none !important;
 }
 
 #pesquisaDiv{
@@ -979,7 +985,7 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
   box-shadow:0px 0px 10px 0px gray;
   margin-right:auto;
   margin-left:auto;
-  padding-bottom: 1px;
+  padding-bottom: 20px;
 }
 
 #editarDadosUsuarioRow{

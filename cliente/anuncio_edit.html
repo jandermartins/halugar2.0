@@ -24,7 +24,7 @@
     <script src="assets/js/vue-session.js"></script>
     <script src="assets/js/jquery.maskedinput.min.js"></script>
 
-    <!-- VALIDAR CEP | INÍCIO -->
+    <!-- MÁSCARA - CEP | INÍCIO -->
     <script type="text/javascript">
         /* Máscaras ER */
         function mascara(o,f){
@@ -45,12 +45,12 @@
             return document.getElementById( el );
         }
         window.onload = function(){
-            id('cep').onkeypress = function(){
+            id('inputCep').onkeypress = function(){
                 mascara( this, mcep );
             }
         }
     </script>
-    <!-- VALIDAR CEP | FIM -->
+    <!-- MÁSCARA - CEP | FIM -->
     
 </head>
 
@@ -118,7 +118,7 @@
                         </div>
 
                         <div class="row" id="cepBairroRow">
-                            <div class="col-xl-4" id="cepCol"><input id="inputCep" class="form-control" id="cep" type="text" v-model="cep" name="cep" maxlength="9" required="Digite o CEP" placeholder="CEP *" required></div>
+                            <div class="col-xl-4" id="cepCol"><input id="inputCep" class="form-control" type="text" v-model="cep" name="cep" maxlength="9" required="Digite o CEP" placeholder="CEP *" required></div>
 
                             <div class="col-xl-8" id="bairroCol"><input id="inputBairro" class="form-control" type="text" v-model="bairro" name="bairro" required="Digite o Bairro" placeholder="Bairro *" required></div>
                         </div>
@@ -205,7 +205,18 @@
                 //    location.href = "acesso_negado.html"; // Se o usuário não estiver logado, redirecionar para a página de acesso restrito.
                 //}
 
+                var currentUrl = window.location.href;
+                var id = new URL(currentUrl).searchParams.get("id");
+
                 vm = this;
+
+                axios.get(this.urlUsuario + "/" + id).then(function (r) {
+                    vm.usuario = r.data;
+                    console.log(vm.usuario);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
                 axios.get(this.urlCasa).then(function (r) {
                     if(r.data.casa.length>1) {
                         vm.casas = r.data.casa;    
@@ -219,6 +230,7 @@
             methods: {                
                 putAnuncio(){ // Substituir dados antigos (Verificar código do COSMO + FÁBIO)
                     let formData = new FormData();
+                    formData.append('image', this.file);
                     formData.append('endereco', this.endereco);
                     formData.append('numero', this.numero);
                     formData.append('cep', this.cep);
@@ -227,9 +239,7 @@
                     formData.append('preco', this.preco);
                     formData.append('vagas', this.vagas);
 
-                    // Verificar como atualizar imagem
-
-                    axios.post(this.url,                    	
+                    axios.put(this.url, + "/" + this.usuario.id,                   	
                     	formData,{
                     		headers: {
                     			'Content-Type': 'multipart/form-data'

@@ -65,7 +65,7 @@
                     <div class="col">
                             <!-- Imagem temporária -->
                             <!-- Image file upload using Vue.js and instant preview - JSFiddle @ https://jsfiddle.net/mani04/5zyozvx8/ -->
-                            <div class="file-upload-form" id="meuAnuncioFile"><img class="img-fluid" src="assets/img/casa_temp.png"></div>
+                            <div id="meuAnuncioFile"><img class="img-fluid" src="assets/img/casa_temp.png"></div>
                         </div>
                     </div>                        
                 </div>
@@ -83,12 +83,12 @@
                     <div class="row" id="botoesRow">
                         <div class="col" id="atualizarCol">
                             <p class="text-center">
-                                <button id="botaoAtualizarAnuncio" class="btn btn-primary btn-block" type="button" @click="atualizarAnuncio">Atualizar dados</button>
+                                <a :href="'anuncio_edit.html?id='+usuario.id" id="linkAtualizar"><button id="botaoAtualizarAnuncio" class="btn btn-primary btn-block" type="button">Atualizar dados</button></a>
                             </p>
                         </div>
                         <div class="col" id="removerCol">
                             <p class="text-center">
-                                <button id="botaoRemoverAnuncio" class="btn btn-danger btn-block" type="button" @click="removerAnuncio">Remover anúncio</button>
+                                <button id="botaoRemoverAnuncio" class="btn btn-danger btn-block" type="button" data-toggle="modal" data-target="#modalConfirmacao">Remover anúncio</button>
                             </p>
                         </div>
                     </div>
@@ -98,6 +98,32 @@
         <!-- DADOS | FIM -->
 
 	</div> 
+	
+	<!-- MODAL | INÍCIO -->
+	<div class="modal fade" id="modalConfirmacao" tabindex="-1" role="dialog" aria-labelledby="ModalCentralizado" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalSenha">Confirmar exclusão</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+						<span aria-hidden="true">&times;</span>
+					 </button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="usuarioEmail" class="col-form-label">Tem certeza que deseja remover o anúncio?</label>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" @click="removerAnuncio">Sim</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL | FIM -->
 
     <!-- FOOTER | INÍCIO -->
     <footer>
@@ -161,15 +187,13 @@
                         console.log(error);
                     });
                 },
-                removerAnuncio(){
-                    // Implementar método para excluir anúncio (COSMO + FÁBIO)
-                    // Exibir modal de confirmação (?)
-                },
-                handleFileUpload() {
-                    this.file = this.$refs.file.files[0];                        
-                },
-                atualizarAnuncio(){
-                    // Implementar método para atualizar anúncio. Redirecionar para anuncio_edit.html (COSMO)
+                removerAnuncio(){ // Remover anúncio por meio do id do respectivo usuário?
+                    axios.delete(this.urlCasa + "/" + this.anuncio.id).then(function(r){
+                        console.log(r);
+                        window.location.replace('index.html')
+                    }).catch(function(error){
+                        console.log(error);
+                    });
                 },
                 sair() {
                     this.$session.destroy();

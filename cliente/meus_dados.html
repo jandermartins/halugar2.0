@@ -25,14 +25,14 @@
 </head>
 
 <body>
-    
-    <div id="app" class="app">
 
-        <!-- NAVBAR - LOGADO | INÍCIO -->
-        <div v-if="flagLogin">
-            <nav class="navbar navbar-light navbar-expand-xl fixed-top navigation-clean">
-                <div class="container-fluid"><a class="navbar-brand text-monospace" href="index.html"><img class="img-fluid float-left" src="assets/img/brand_ha-lugar.png" alt="HáLugar Logo"></a>
-                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+	<div id="app" class="app">
+
+		<!-- NAVBAR - LOGADO | INÍCIO -->
+	    <div v-if="flagLogin">
+	        <nav class="navbar navbar-light navbar-expand-xl fixed-top navigation-clean">
+	            <div class="container-fluid"><a class="navbar-brand text-monospace" href="index.html"><img class="img-fluid float-left" src="assets/img/brand_ha-lugar.png" alt="HáLugar Logo"></a>
+	                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item d-block align-self-center" role="presentation"><a class="nav-link" href="index.html">INÍCIO<i class="fa fa-home float-left"></i></a></li>
@@ -47,53 +47,78 @@
                                     <a class="dropdown-item" role="presentation" :href="'meu_anuncio.html?id='+anuncio.id">Meu anúncio</a>
                                 </div>
                             </li>
-                            <li class="nav-item d-block align-self-center" role="presentation"><a class="nav-link" href="index.html" @click="sair">SAIR<i class="fa fa-times-circle float-left"></i></a></li>
-                        </ul>
-                    </div>
-                 </div>
-            </nav>
-        </div>
-        <!-- NAVBAR - LOGADO | FIM -->
+                    		<li class="nav-item d-block align-self-center" role="presentation"><a class="nav-link" href="index.html" @click="sair">SAIR<i class="fa fa-times-circle float-left"></i></a></li>
+                    	</ul>
+            		</div>
+	    		</div>
+	    	</nav>
+	    </div>
+	    <!-- NAVBAR - LOGADO | FIM -->
 
-        <!-- FORMULÁRIO | INÍCIO -->
-        <div id="meusDadosDiv">
-            <div id="meusDadosContainer" class="container" data-aos="fade-right">
-                <h2 class="text-center">MEUS DADOS</h2>
-                <div class="row" id="meusDadosRow">
+		<!-- FORMULÁRIO | INÍCIO -->
+		<div id="meusDadosContainer" class="container" data-aos="fade-right">
+			<h2 class="text-center">MEUS DADOS</h2>
+			<div class="row" id="meusDadosRow">
 
-                    <div class="col-md-6 col-xl-4 align-self-center" id="colunaImagemUsuario">
-                        <div class="row">
-                            <div class="col align-self-center">
-                                <p class="text-center"><img id="imagemUsuario" class="img-fluid" src="assets/img/card_user.png"></p>
-                            </div>
-                        </div>
-                    </div>
+				<div class="col-md-6 col-xl-4 align-self-center" id="colunaImagemUsuario">
+					<div class="row">
+						<div class="col align-self-center">
+							<p class="text-center"><img id="imagemUsuario" class="img-fluid" src="assets/img/card_user.png"></p>
+						</div>
+					</div>
+				</div>
 
-                    <div class="col-md-6 col-xl-8" id="colunaDadosUsuario">
-                        <br><br>
-                        <p id="dadoAnuncioView"><strong>NOME:</strong> {{usuario.nome}} </p><br>
-                        <p id="dadoAnuncioView"><strong>LOGIN:</strong> {{usuario.login}} </p><br>
-                        <p id="dadoAnuncioView"><strong>TELEFONE:</strong> {{usuario.telefone}} </p><br>
+				<div class="col-md-6 col-xl-8" id="colunaDadosUsuario">
+					<br><br>
+					<p id="dadoAnuncioView"><strong>NOME:</strong> {{usuario.nome}} </p><br>
+					<p id="dadoAnuncioView"><strong>LOGIN:</strong> {{usuario.login}} </p><br>
+					<p id="dadoAnuncioView"><strong>TELEFONE:</strong> {{usuario.telefone}} </p><br>
 
-                        <div class="row" id="botoesDadosUsuario">
-                            <div class="col" id="botaoAtualizarCol">
-                                <p class="text-center">
-                                    <button id="botaoAtualizarDados" class="btn btn-primary btn-block" type="button" @click="atualizarUsuario">Atualizar dados</button>
-                                </p>
-                            </div>
-                            <div class="col" id="botaoExcluirCol">
-                                <p class="text-center">
-                                    <button id="botaoExcluirConta" class="btn btn-danger btn-block" type="button" @click="excluirConta">Excluir conta</button>
-                                </p>
-                            </div>
-                        </div>
+					<div class="row" id="botoesDadosUsuario">
+						<div class="col" id="botaoAtualizarCol">
+							<p class="text-center">
+								<a :href="'usuario_edit.html?id='+usuario.id" id="linkAtualizarDados"><button id="botaoAtualizarDados" class="btn btn-primary btn-block" type="button">Atualizar dados</button></a>
+							</p>
+						</div>
+						<div class="col" id="botaoExcluirCol">
+							<p class="text-center">
+								<button id="botaoExcluirConta" class="btn btn-danger btn-block" type="button" data-toggle="modal" data-target="#modalConfirmacao">Excluir conta</button>
+							</p>
+						</div>
+					</div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FORMULÁRIO | FIM -->
-    </div>
+				</div>
+			</div>
+		</div>
+		<!-- FORMULÁRIO | FIM -->
+
+	</div> 
+	
+	<!-- MODAL | INÍCIO -->
+	<div class="modal fade" id="modalConfirmacao" tabindex="-1" role="dialog" aria-labelledby="ModalCentralizado" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalSenha">Confirmar exclusão</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+						<span aria-hidden="true">&times;</span>
+					 </button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="usuarioEmail" class="col-form-label">Tem certeza que deseja excluir sua conta?</label>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" @click="excluirConta">Sim</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL | FIM -->
 
     <!-- FOOTER | INÍCIO -->
     <footer>
@@ -170,13 +195,9 @@
                         console.log(error);
                     });
                 },
-                atualizarUsuario(){
-                    // Implementar método para atualizar usuário. Redirecionar para usuario_edit.html (COSMO)
-                },
-                excluirConta() { // Ebibir modal de confirmação
+                excluirConta() { // Remover também anúncio criado pelo usuário
                     axios.delete(this.url + "/" + this.usuario.id).then(function (r) {
                         console.log(r);
-
                         this.$session.destroy()
                         window.location.replace('index.html');
 
