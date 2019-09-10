@@ -162,15 +162,11 @@
                     if(!this.nome || !this.email || !this.mensagem || !this.validEmail(this.email)) {
                         this.flagErro=true;
                         this.flagEnvio=false;
+                        document.getElementById('formulario').reset(); // Não está funcionando
                     }
                     else{
                         this.flagErro=false;
                         this.flagEnvio=true;
-
-                        // Limpar dados após o envios (ERRO!)
-                        document.getElementById("campoNome").value = "";
-                        document.getElementById("campoEmail").value = "";
-                        document.getElementById("campoMensagem").value = "";
                     }
                     
                     // e.preventDefault(); // Apresentando erro!

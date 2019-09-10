@@ -180,9 +180,9 @@
                     }
                     
                     vm = this;
+                    
                     axios.get(this.urlCasa).then(function (r) {
-                        
-                            vm.casas = r.data;
+                        vm.casas = r.data;
                     }).catch(function (error) {
                         console.log(error);
                     });

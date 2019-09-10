@@ -104,7 +104,7 @@
                         <div class="row" id="dadosContatoRow">
                             <div class="col" id="dadosContatoCol">
                                 <p class="text-center">
-                                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalDadosAnunciante" id="botaoExibirDados" type="button" @click="exibirDadosContato">Dados do anunciante</button>
+                                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalDadosAnunciante" id="botaoExibirDados" type="button">Dados do anunciante</button>
                                 </p>
                             </div>
                         </div>
@@ -179,9 +179,6 @@
                 if (this.$session.exists()) {
                     this.flagLogin = true;
                 }
-                //else{
-                //    location.href = "acesso_negado.html"; // Se o usuário não estiver logado, redirecionar para a página de acesso restrito.
-                //}
 
                 vm = this;
                 axios.get(this.urlCasa).then(function (r) {
@@ -194,15 +191,14 @@
                     console.log(error);
                 });
 
-                this.id = this.$session.get("id");
-                this.getAnuncioById(this.id);
+                id = this.$session.get("id");
+                this.getAnuncioById(id); // Retornando anúncio com mesmo id do usuário.
             },
             methods: {
                 getAnuncioById(id){
                     vm=this;
                     axios.get(this.url + "/" + this.id).then( function (r) {
                         vm.casa = r.data;
-
                         console.log(r.data);
                         }).catch(function (error) {
                         console.log(error);
@@ -210,12 +206,6 @@
                 },
                 getUsuario(){
                     // Retornar usuário que criou o anúncio para exibir suas informações de contato
-                },
-                getAnuncianteById(){
-                	// Implementar método para recuperar anunciante de um respectivo anúncio
-                },
-                exibirDadosContato(){
-                    // Implementar método para exibir dados do anunciante em um modal
                 },
                 sair() {
                     this.$session.destroy();

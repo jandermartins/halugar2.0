@@ -112,6 +112,14 @@
                     <div class="col-md-6 col-xl-8" style="margin-top:15px;margin-bottom:15px;padding-right:30px;padding-left:30px;">
 
                         <!-- INPUTS | INÍCIO -->
+
+                        <!-- Renderizar dados do anúncio (QUEBRANDO A PÁGINA):
+
+                            https://github.com/kazupon/vue-i18n/issues/68
+                            https://jsfiddle.net/2av8r31w/3/
+
+                        -->
+
                         <div class="row" id="enderecoNumeroRow">
                             <div class="col" id="enderecoCol"><input id="inputEndereco" class="form-control" type="text" v-model="endereco" name="endereco" required="Digite o endereço" placeholder="Endereço *" required></div>
                             <div class="col-xl-3" id="numeroCol"><input id="inputNumero" type="number" v-model="numero" name="numero" class="form-control" min="1" required="Digite o número" placeholder="Número *" required></div>
